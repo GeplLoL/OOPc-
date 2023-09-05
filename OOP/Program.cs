@@ -1,5 +1,7 @@
-﻿using System.Runtime.Intrinsics.X86;
+using OOP;
+using System.Runtime.Intrinsics.X86;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks.Dataflow;
 
 public class Message
 {
@@ -62,59 +64,62 @@ public class Message
         }
         string res = "";
         return res;
+
     }
 }
 public class Program
 {
     public static void Main()
     {
-        Random rnd = new Random();
-        Random rndtime = new Random();
+
+        List<Message> messeges = new List<Message>();
         Random rndauthor = new Random();
         Random rndcontent = new Random();
-        string stroka = "стакан";
+        string stroka = "Glass: ";
         switch (rndcontent.Next(2))
         {
             case 0:
-                stroka += " холодный";
+                stroka += " cold";
                 break;
             case 1:
-                stroka += " теплый";
+                stroka += " hot";
                 break;
         }
-        string strokaAuthor = "автор";
+        string strokaAuthor = "Autor";
         switch (rndauthor.Next(2))
         {
             case 0:
-                strokaAuthor += " Георг";
+                strokaAuthor += " Georg";
                 break;
             case 1:
-                strokaAuthor += " Евгений";
+                strokaAuthor += " Evgeni";
                 break;
         }
-        string strokatime = "Время";
-        switch (rndauthor.Next(2))
-        {
-            case 0:
-                strokatime += DateTime.Now.AddDays(-3);
-                break;
-            case 1:
-                strokatime += DateTime.Now.AddDays(-10);
-                break;
-        }
-
-
+        int t = -1 * rndauthor.Next(0, 100);
+        Console.Write("Author: ");
+        string auter = Console.ReadLine();
+        Console.Write("Content: ");
+        string conti = Console.ReadLine();
         Message m1 = new Message("Hello", "John", DateTime.Now.AddDays(-10));
         m1.AddLike();
         m1.vivod();
         Message m2 = new Message("Hi", "Mary", DateTime.Now.AddMinutes(-1));
         m2.AddLike();
         m2.vivod();
+        Message m3 = new Message(strokaAuthor.ToString(), stroka.ToString(), DateTime.Now.AddMinutes(t));
+        m3.AddLike();
+        m3.vivod();
+        Message m4 = new Message(conti.ToString(), auter.ToString(), DateTime.Now.AddMinutes(t));
+        m4.AddLike();
+        m4.vivod();
+        messeges.Add(m1);
+        messeges.Add(m2);
+        messeges.Add(m3);
+        messeges.Add(m4);
         for (int i = 0; i < 1000; i++)
         {
             m2.AddLike();
         }
-        Console.WriteLine(m2.GetPopularity());
         Console.WriteLine(m1.popular(m1.GetPopularity(),m2.GetPopularity()));
         List<Message> List = new List<Message>();
         List.Add(m1);
