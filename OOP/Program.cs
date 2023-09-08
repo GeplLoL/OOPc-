@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Threading.Channels;
 public class Group
 {
@@ -24,12 +24,12 @@ public class Group
     {
         return liiked.Contains(member);
     }
-    public class chel
+    public class inimene
     {
         private readonly string _firstName;
         private readonly string _lastName;
         private readonly int _age;
-        public chel(string firstName, string lastName, int age)
+        public inimene(string firstName, string lastName, int age)
         {
             this._firstName = firstName;
             this._lastName = lastName;
